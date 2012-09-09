@@ -91,18 +91,18 @@ app.post('/register-user', function(req, res){
       getHash(req.body.password, function(err, hash){
         var newAccount = new Account();
         newAccount.username = req.body.name;
-        newAccount.password = req.body.password;
+        newAccount.password = hash;
         newAccount.email = req.body.email;
         newAccount.save();
 
         res.redirect('/login');
       });
     } else {
-        req.flash('error', 'Your password and comfirm password do not match.');
+        //req.flash('error', 'Your password and comfirm password do not match.');
         res.redirect('/register');
     }
   } else {
-      req.flash('error', 'You forgot something.');
+      //req.flash('error', 'You forgot something.');
       res.redirect('/register');
   }
 });
