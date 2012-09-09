@@ -1,0 +1,104 @@
+body
+{
+color: #242424;
+font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+header
+{
+background: #242424;
+color: #fff;
+margin: 0 0 40px 0;
+}
+
+a:link, a:visited
+{
+text-decoration: none;
+}
+
+nav a:link, nav a:visited
+{
+color: #ccc;
+text-decoration: none;
+}
+
+nav a:hover, nav a:active
+{
+color: #fff;
+}
+
+nav ul
+{
+list-style: none;
+padding: 0;
+margin: 30px 0 0 0;
+float: right;
+}
+
+nav ul li
+{
+display: inline;
+margin: 0 0 0 10px;
+}
+
+.begin
+{
+background: #0084ff;
+text-align: center;
+color: #fff;
+font-weight: bold;
+width: 120px;
+height: 60px;
+padding: 20px 0 0 0;
+display: inline-block;
+
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+}
+
+	.begin a:link, .begin a:visited
+	{
+	text-decoration: none;
+	}
+	
+h1, h2, h3, h4, h5, h6 {font-family: Futura, "Trebuchet MS", Arial, sans-serif;}
+h2, h3, h4 {color: #444;}
+
+h2
+{
+font-size: 16px;
+}
+
+hr
+{
+height: 1px;
+border: 1px solid #777;
+margin: -4px 0 20px 0;
+}
+
+/* ------- Forms ------- */
+
+input[type=text]
+{
+width: 200px;
+}
+
+input[type=submit]
+{
+background: #0084ff;
+color: #fff;
+font-weight: bold;
+padding: 4px;
+border: none;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+}
+
+label
+{
+padding: 0 20px 0 0;
+}

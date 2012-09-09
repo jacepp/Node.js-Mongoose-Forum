@@ -1,0 +1,1 @@
+mongoose.connect('mongodb://nodejitsu:141a86d47e6896f3057df8d8a60ffd22@alex.mongohq.com:10040/nodejitsudb598608945817');

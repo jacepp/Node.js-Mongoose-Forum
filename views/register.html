@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Konvocate | Register</title>
+  
+  <link rel="stylesheet" href="/stylesheets/grid.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header class="container">
+    <div class="row">
+      <div class="six columns">
+        <h1>Konvocate</h1>
+      </div>
+      <div class="six columns">
+        <nav>
+          <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <section class="container">
+    <div class="row">
+      <div class="eight columns offset-by-two">
+        <h2>Register</h2>
+        <hr>
+        <form action="/register-user" method="POST">
+          <table>
+            <tr>
+              <td><label for="name">Username:</label></td>
+              <td><input type="text" name="name" placeholder="Enter a username"></td>
+            </tr>
+            <tr>
+              <td><label for="email">Email:</label></td>
+              <td><input type="text" name="email" placeholder="Enter a valid email address"></td>
+            </tr>
+            <tr>
+              <td><label for="password">Password:</label></td>
+              <td><input type="password" name="password" placeholder="Enter a password"></td>
+            </tr>
+            <tr>
+              <td><label for="confirm">Confirm:</label></td>
+              <td><input type="password" name="confirm" placeholder="Confirm password"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="submit" name="register" value="Register"></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </section>
