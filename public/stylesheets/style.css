@@ -18,26 +18,42 @@ a:link, a:visited
 text-decoration: none;
 }
 
-nav a:link, nav a:visited
+a:link {color: #0084ff;}
+a:visited {color: #376591;}
+a:hover {color: #EA2E49;}
+a:active {color: #77C4D3;}
+
+header nav a:link, header nav a:visited
 {
 color: #ccc;
 text-decoration: none;
 }
 
-nav a:hover, nav a:active
-{
-color: #fff;
-}
+header nav a:hover, header nav a:active {color: #fff;}
+h1 a:link, h1 a:visited, h1 a:hover, h1 a:active {color: #fff;}
 
 nav ul
 {
 list-style: none;
 padding: 0;
-margin: 30px 0 0 0;
-float: right;
+margin: -20px 0 20px 0;
 }
 
-nav ul li
+nav li
+{
+color: #777;
+display: inline;
+padding: 0 6px 0 0;
+margin: 0;
+}
+
+header nav ul
+{
+float: right;
+margin: 30px 0 0 0;
+}
+
+header nav ul li
 {
 display: inline;
 margin: 0 0 0 10px;
@@ -67,10 +83,8 @@ border-radius: 10px;
 h1, h2, h3, h4, h5, h6 {font-family: Futura, "Trebuchet MS", Arial, sans-serif;}
 h2, h3, h4 {color: #444;}
 
-h2
-{
-font-size: 16px;
-}
+h2 {font-size: 16px;}
+h3 {font-size: 16px; margin: 0; padding: 0;}
 
 hr
 {
@@ -79,11 +93,62 @@ border: 1px solid #777;
 margin: -4px 0 20px 0;
 }
 
+.post
+{
+margin: 0 0 14px 0;
+}
+
+	.post p
+	{
+	padding: 0;
+	margin: 4px 0;
+	}
+
+	.post span
+	{
+	color: #555;
+	font-size: 12px;
+	padding: 0 0 4px 0;
+	}
+	
+.comment
+{
+font-size: 12px;
+padding: 0 0 6px 0;
+border-bottom: 1px solid #ccc;
+margin: 6px 0 6px 0;
+}
+
+	.comment span
+	{
+	margin: 0 0 10px 20px;
+	}
+
+blockquote
+{
+color: #555;
+padding: 0 0 0 6px;
+border-left: 2px solid #ddd;
+margin: 10px 0 4px 20px;
+}
+
+aside
+{
+text-align: right;
+}
+
+article
+{
+padding: 6px 0;
+}
+
 /* ------- Forms ------- */
 
 input[type=text]
 {
 width: 200px;
+padding: 2px 4px;
+margin: 0 0 4px 0;
 }
 
 input[type=submit]
