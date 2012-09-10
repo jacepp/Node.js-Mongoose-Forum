@@ -34,7 +34,7 @@ var commentSchema = new Schema({
 var accountSchema = new Schema({
   username: String,
   password: String,
-  email: String
+  email: {type: String, index: {unique: true}}
 });
 
 var Thread = db.model('Thread', threadSchema)
