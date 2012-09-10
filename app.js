@@ -9,7 +9,8 @@ var express = require('express')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , flash = require('connect-flash')
-  , crypto = require('crypto');
+  , crypto = require('crypto')
+  , route = require('./routes');
 
 var app = express();
 
@@ -67,9 +68,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', function(req, res){
-  res.sendfile(__dirname + '/views/index.html');
-});
+app.get('/', route.index);
 
 app.get('/login', function(req, res){
   res.sendfile(__dirname + '/views/login.html');

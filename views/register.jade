@@ -22,6 +22,8 @@ head
         .eight.columns.offset-by-two
           h2 Register
           hr
+          if message
+            p= message
           form(action='/register-user', method='POST')
             table
               tr
