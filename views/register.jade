@@ -1,0 +1,50 @@
+!!! 5
+html(lang='en')
+head
+    title Konvocate | Register
+    link(rel='stylesheet', href='/stylesheets/grid.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header.container
+      .row
+        .six.columns
+          h1
+            a(href='/') Konvocate
+        .six.columns
+          nav
+            ul
+              li
+                a(href='/login') Login
+              li
+                a(href='/register') Register
+    section.container
+      .row
+        .eight.columns.offset-by-two
+          h2 Register
+          hr
+          form(action='/register-user', method='POST')
+            table
+              tr
+                td
+                  label(for='name') Username:
+                td
+                  input(type='text', name='name', placeholder='Enter a username')
+              tr
+                td
+                  label(for='email') Email:
+                td
+                  input(type='text', name='email', placeholder='Enter a valid email address')
+              tr
+                td
+                  label(for='password') Password:
+                td
+                  input(type='password', name='password', placeholder='Enter a password')
+              tr
+                td
+                  label(for='confirm') Confirm:
+                td
+                  input(type='password', name='confirm', placeholder='Confirm password')
+              tr
+                td
+                td
+                  input(type='submit', name='register', value='Register')
