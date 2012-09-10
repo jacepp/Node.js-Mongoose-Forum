@@ -69,9 +69,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', function(req, res){
-  res.sendfile(__dirname + '/views/index.html');
-});
+app.get('/', route.index);
 
 app.get('/login', function(req, res){
   res.sendfile(__dirname + '/views/login.html');
