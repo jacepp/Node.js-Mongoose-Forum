@@ -69,26 +69,11 @@ app.configure('development', function(){
 });
 
 app.get('/', route.index);
-
-app.get('/login', function(req, res){
-  res.sendfile(__dirname + '/views/login.html');
-});
-
-app.get('/register', function(req, res){
-  res.sendfile(__dirname + '/views/register.html');
-});
-
-app.get('/home', function(req, res){
-  res.sendfile(__dirname + '/views/home.html');
-});
-
-app.get('/view-all', function(req, res){
-  res.sendfile(__dirname + '/views/all.html');
-});
-
-app.get('/thread', function(req, res){
-  res.sendfile(__dirname + '/views/thread.html');
-});
+app.get('/login', route.login);
+app.get('/register', route.register);
+app.get('/home', route.home);
+app.get('/all', route.all);
+app.get('/thread', route.thread);
 
 app.post('/login-user', function(req, res){
   console.log(req.body);
