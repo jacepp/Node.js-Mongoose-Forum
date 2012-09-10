@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -50,12 +49,14 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.cookieParser('roar'));
-  app.use(flash());
+  
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session({secret: 'jacepp'}));
+  // PMW I think you just need to initialize flash() after you setup sessions.
+  app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 });
