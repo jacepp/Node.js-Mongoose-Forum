@@ -80,6 +80,18 @@ app.get('/register', function(req, res){
   res.sendfile(__dirname + '/views/register.html');
 });
 
+app.get('/home', function(req, res){
+  res.sendfile(__dirname + '/views/home.html');
+});
+
+app.get('/view-all', function(req, res){
+  res.sendfile(__dirname + '/views/all.html');
+});
+
+app.get('/thread', function(req, res){
+  res.sendfile(__dirname + '/views/thread.html');
+});
+
 app.post('/login-user', function(req, res){
   console.log(req.body);
 });
