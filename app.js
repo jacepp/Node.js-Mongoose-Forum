@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -50,12 +49,14 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.cookieParser('roar'));
-  app.use(flash());
+  
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session({secret: 'jacepp'}));
+  // PMW I think you just need to initialize flash() after you setup sessions.
+  app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 });
@@ -91,18 +92,18 @@ app.post('/register-user', function(req, res){
       getHash(req.body.password, function(err, hash){
         var newAccount = new Account();
         newAccount.username = req.body.name;
-        newAccount.password = req.body.password;
+        newAccount.password = hash;
         newAccount.email = req.body.email;
         newAccount.save();
 
         res.redirect('/login');
       });
     } else {
-        req.flash('error', 'Your password and comfirm password do not match.');
+        //req.flash('error', 'Your password and comfirm password do not match.');
         res.redirect('/register');
     }
   } else {
-      req.flash('error', 'You forgot something.');
+      //req.flash('error', 'You forgot something.');
       res.redirect('/register');
   }
 });
