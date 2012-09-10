@@ -6,11 +6,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose')
-  , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
   , flash = require('connect-flash')
   , crypto = require('crypto')
-  , route = require('./routes');
+  , routes = require('./routes');
 
 var app = express();
 
@@ -56,8 +54,6 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session({secret: 'jacepp'}));
   app.use(flash());
-  app.use(passport.initialize());
-  app.use(passport.session());
 });
 
 var getHash = function(password, cb) {
@@ -68,15 +64,39 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', route.index);
-app.get('/login', route.login);
-app.get('/register', route.register);
-app.get('/home', route.home);
-app.get('/all', route.all);
-app.get('/thread', route.thread);
+app.get('/', routes.index);
+app.get('/login', function(req, res){
+  res.render('login');
+});
+app.get('/register', function(req, res){
+  res.render('register');
+});
+app.get('/home', function(req, res){
+  res.render('home');
+});
+app.get('/all', function(req, res){
+  res.render('all');
+});
+app.get('/thread', function(req, res){
+  res.render('thread');
+});
 
 app.post('/login-user', function(req, res){
   console.log(req.body);
+  if(req.body.email && req.body.password){
+    getHash(req.body.password, function(err, hash){
+      Account.findOne({'password':hash}, function(err, account){
+        if(account.email === req.body.email){
+          console.log(req.session);
+          res.redirect('/home');
+        } else {
+          res.redirect('/login');
+        }           
+      });      
+    });  
+  } else {
+    res.redirect('/login');
+  }
 
 });
 
@@ -94,11 +114,11 @@ app.post('/register-user', function(req, res){
         res.redirect('/login');
       });
     } else {
-        req.flash('error', 'Your password and comfirm password do not match.');
+        //req.flash('error', 'Your password and comfirm password do not match.');
         res.redirect('/register');
     }
   } else {
-      req.flash('error', 'You forgot something.');
+      //req.flash('error', 'You forgot something.');
       res.redirect('/register');
   }
 });
