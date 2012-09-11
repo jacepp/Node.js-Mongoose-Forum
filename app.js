@@ -6,13 +6,14 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose')
-  , flash = require('connect-flash')
   , crypto = require('crypto')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , socket = require('socket.io')
+  , MongoStore = require('connect-mongo')(express);
 
 var app = express();
 
-var db = mongoose.createConnection('localhost', 'test');
+var db = mongoose.createConnection('mongodb://nodejitsu:141a86d47e6896f3057df8d8a60ffd22@alex.mongohq.com:10040/forum');
 
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
@@ -51,8 +52,10 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.session({secret: 'razzlefrazzle'}));
-  app.use(flash());
+  app.use(express.session({
+    secret: 'razzlefrazzle',
+    store: new MongoStore({db: 'forum'})
+  }));
   app.use(app.router);
 });
 
@@ -190,6 +193,18 @@ app.post('/add-comment/:id', function(req, res){
   res.redirect('/thread/' + req.params.id);
 });
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app);
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
+});
+
+var io = socket.listen(server);
+io.on('connection', function(socket) {
+  socket.on('new_thread', function(data) {
+    
+  });
+
+  socket.on('new_comment', function(data) {
+    
+  });
 });
