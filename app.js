@@ -85,8 +85,8 @@ app.post('/login-user', function(req, res){
   console.log(req.body);
   if(req.body.email && req.body.password){
     getHash(req.body.password, function(err, hash){
-      Account.findOne({'password':hash}, function(err, account){
-        if(account.email === req.body.email){
+      Account.findOne({'email':req.body.email}, function(err, account){
+        if(req.body.password === hash){
           console.log(req.session);
           res.redirect('/home');
         } else {
@@ -97,7 +97,6 @@ app.post('/login-user', function(req, res){
   } else {
     res.redirect('/login');
   }
-
 });
 
 app.post('/register-user', function(req, res){
