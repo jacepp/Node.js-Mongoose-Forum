@@ -1,0 +1,42 @@
+!!! 5
+html(lang='en')
+head
+    title Konvocate | New Thread
+    link(rel='stylesheet', href='/stylesheets/grid.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header.container
+      .row
+        .six.columns
+          h1
+            a(href='/home') Konvocate
+        .six.columns
+          nav
+            ul
+              li
+                a(href='/home') Home
+              li
+                a(href='/all') All Posts
+              li
+                a(href='/sign-out') Sign Out
+    section.container
+      .row
+        .eight.columns.offset-by-two
+          h2 New Thread
+          hr
+          form(action='/new-thread', method='POST')
+            table
+              tr
+                td
+                  label(for='topic') Topic:
+                td
+                  input(type='text', name='topic', placeholder='Enter a topic')
+              tr
+                td
+                  label(for='content') Body:
+                td
+                  textarea(id='content', rows='10', cols='50', name='content', placeholder='Say what you got to say.')
+              tr
+                td
+                td
+                  input(type='submit', name='create', value='Create')

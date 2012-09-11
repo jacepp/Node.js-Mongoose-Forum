@@ -14,41 +14,34 @@ head
           nav
             ul
               li
-                a(href='#') Home
+                a(href='/home') Home
               li
-                a(href='#') All Posts
+                a(href='/new-thread') New Thread
               li
-                a(href='#') Sign Out
+                a(href='/sign-out') Sign Out
     section.container
       .row
         .twelve.columns
           nav
             ul
               li
-                a(href='#') Home
+                a(href='/home') Home
               li »
               li All Posts
           h2 All Posts
           hr
-          .post
-            p
-              a(href='#a')
-                | Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-            span
-              | Created by
-              a(href='#') Name
-              | at time.
-            .comment
-              p
-                a(href='#') 123 Comments »
-          .post
-            p
-              a(href='#a')
-                | Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-            span
-              | Created by
-              a(href='#') Name
-              | at time.
-            .comment
-              p
-                a(href='#') 123 Comments »
+          if threads
+            - var i = 0;
+            each thread in threads
+              .post
+                h3
+                  a(href='/thread/' + thread._id) #{thread.topic}
+                article
+                  p
+                    | #{thread.content}
+                span
+                  | Created by
+                  | #{thread.author}
+                  | on #{thread.date}
+                .comment
+                  #{thread.count} Comments

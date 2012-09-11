@@ -3,5 +3,5 @@
  */
 
 exports.register = function(req, res){
-  res.render('register', {message: req.flash('error')});
+  res.render('register.jade', {message: req.flash('error')});
 };
