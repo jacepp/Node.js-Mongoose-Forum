@@ -14,88 +14,43 @@ head
           nav
             ul
               li
-                a(href='#') Home
+                a(href='/home') Home
               li
-                a(href='#') All Posts
+                a(href='/all') All Threads
               li
-                a(href='#') Sign Out
+                a(href='/sign-out') Sign Out
     section.container
       .row
         .six.columns
-          h2 New Posts
+          h2 New Threads
           hr
-          .post
-            p
-              a(href='#a')
-                | Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-            span
-              | Created by
-              a(href='#') Name
-              | at time.
-            .comment
-              p
-                a(href='#') 123 Comments »
-          .post
-            p
-              a(href='#a')
-                | Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-            span
-              | Created by
-              a(href='#') Name
-              | at time.
-            .comment
-              p
-                a(href='#') 123 Comments »
-          .post
-            p
-              a(href='#a')
-                | Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-            span
-              | Created by
-              a(href='#') Name
-              | at time.
-            .comment
-              p
-                a(href='#') « Close Comments
-              blockquote
-                | Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-              span
-                | -
-                a(href='#') Name
-                | , time.
-              blockquote
-                | Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-              span
-                | -
-                a(href='#') Name
-                | , time.
+          if threads
+            each thread in threads
+              .post
+                h3
+                  a(href='/thread/' + thread._id) #{thread.topic}
+                article
+                  p
+                    | #{thread.content}
+                span
+                  | Created by
+                  | #{thread.author}
+                  | on #{thread.date}
+                .comment
+            a(href='/new-thread') Start a thread
+          else
+            a(href='/new-thread') Start a thread
         .six.columns
           h2 New Comments
-          hr
-          .comment
-            blockquote
-              | Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-            span
-              | -
-              a(href='#') Name
-              | , time.
-            aside
-              a(href='#') View Post
-          .comment
-            blockquote
-              | Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-            span
-              | -
-              a(href='#') Name
-              | , time.
-            aside
-              a(href='#') View Post
-          .comment
-            blockquote
-              | Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-            span
-              | -
-              a(href='#') Name
-              | , time.
-            aside
-              a(href='#') View Post
+          hr          
+          if comments            
+            each comment in comments
+              .comment
+                blockquote
+                  | #{comment.body}
+                span
+                  | -
+                  | #{comment.user}
+                  | , #{comment.date}
+                aside
+                  a(href='/thread/' + comment.thread) View Thread

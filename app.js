@@ -18,15 +18,15 @@ var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
 
 var threadSchema = new Schema({
-  title: String,
+  topic: String,
   content: String,
   author: String,
   date: {type: Date, default: Date.now }
 });
 
 var commentSchema = new Schema({
-  content: String,
-  author: String,
+  body: String,
+  user: String,
   thread: [{ type: Schema.Types.ObjectId, ref: 'Thread' }],
   date: {type: Date, default: Date.now }
 });
@@ -50,10 +50,10 @@ app.configure(function(){
   app.use(express.cookieParser('roar'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.session({secret: 'jacepp'}));
+  app.use(express.session({secret: 'razzlefrazzle'}));
   app.use(flash());
+  app.use(app.router);
 });
 
 var getHash = function(password, cb) {
@@ -68,26 +68,79 @@ app.get('/', routes.index);
 app.get('/login', function(req, res){
   res.render('login');
 });
+
 app.get('/register', function(req, res){
   res.render('register');
 });
+
 app.get('/home', function(req, res){
-  res.render('home');
+  if(req.session.author){
+    Thread.find().sort('-date').limit(10).execFind(function(err, threads){
+      Comment.find().sort('-date').limit(10).execFind(function(err, comments){
+        if(threads.length && comments.length)
+          res.render('home', {threads: threads, comments: comments});
+        else if(!threads.length && comments.length)
+          res.render('home', {threads: null, comments: comments});
+        else if(threads.length && !comments.length)
+          res.render('home', {threads: threads, comments: null});
+        else
+          res.render('home', {threads: null, comments: null});
+      });
+    });
+  } else {
+      res.render('index');
+  }    
 });
+
 app.get('/all', function(req, res){
-  res.render('all');
+  if(req.session.author){
+    Thread.find().sort('-date').execFind(function(err, threads){
+      res.render('all', {threads: threads});
+    });
+  } else {
+      res.render('index');
+  }   
 });
-app.get('/thread', function(req, res){
-  res.render('thread');
+
+app.get('/thread/:id', function(req, res){
+  if(req.session.author)
+    Thread.findOne({'_id': req.params.id}, function(err, thread){
+      Comment.find({'thread.0': thread._id}).sort('-date').execFind(function(err, comments){
+        if(comments.length)
+          res.render('thread', {id: thread._id, topic: thread.topic, content: thread.content, author: thread.author, date: thread.date, comments: comments});
+        else
+          res.render('thread', {id: thread._id, topic: thread.topic, content: thread.content, author: thread.author, date: thread.date, comments: null});
+      });      
+    }); 
+  else
+    res.render('index'); 
+});
+
+app.get('/new-thread', function(req, res){
+  if(req.session.author)
+    res.render('new-thread');
+  else
+    res.render('index'); 
+});
+
+app.get('/comment/:id', function(req, res){
+  if(req.session.author)
+    res.render('comment', {id: req.params.id});
+  else
+    res.render('index');
+});
+
+app.get('/sign-out', function(req, res){
+  req.session.destroy();
+  res.render('index');
 });
 
 app.post('/login-user', function(req, res){
-  console.log(req.body);
   if(req.body.email && req.body.password){
     getHash(req.body.password, function(err, hash){
       Account.findOne({'email':req.body.email}, function(err, account){
-        if(req.body.password === hash){
-          console.log(req.session);
+        if(account.password === hash){
+          req.session.author = account.username;
           res.redirect('/home');
         } else {
           res.redirect('/login');
@@ -100,7 +153,6 @@ app.post('/login-user', function(req, res){
 });
 
 app.post('/register-user', function(req, res){
-  console.log(req.body);
   if(req.body.name && req.body.email && req.body.password && req.body.confirm){
     if(req.body.confirm === req.body.password){
       getHash(req.body.password, function(err, hash){
@@ -113,13 +165,29 @@ app.post('/register-user', function(req, res){
         res.redirect('/login');
       });
     } else {
-        //req.flash('error', 'Your password and comfirm password do not match.');
         res.redirect('/register');
     }
   } else {
-      //req.flash('error', 'You forgot something.');
       res.redirect('/register');
   }
+});
+
+app.post('/new-thread', function(req, res){
+  var newThread = new Thread();
+  newThread.topic = req.body.topic;
+  newThread.content = req.body.content;
+  newThread.author = req.session.author;
+  newThread.save();
+  res.redirect('/thread/' + newThread._id);
+});
+
+app.post('/add-comment/:id', function(req, res){
+  var newComment = new Comment();
+  newComment.body = req.body.body;
+  newComment.user = req.session.author;
+  newComment.thread = req.params.id;
+  newComment.save();
+  res.redirect('/thread/' + req.params.id);
 });
 
 http.createServer(app).listen(app.get('port'), function(){
