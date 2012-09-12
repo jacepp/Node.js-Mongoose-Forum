@@ -1,1 +1,5 @@
-mongoose.connect('mongodb://nodejitsu:141a86d47e6896f3057df8d8a60ffd22@alex.mongohq.com:10040/nodejitsudb598608945817');
+forum db:
+mongoose.connect('mongodb://nodejitsu:2015f5b0193ede03b20ec81b189cbf82@alex.mongohq.com:10040/nodejitsudb20534191509');
+
+sessions db:
+mongoose.connect('mongodb://nodejitsu:e56e06f60d86e6075e6eb21b1790fabd@alex.mongohq.com:10015/nodejitsudb930196683980');

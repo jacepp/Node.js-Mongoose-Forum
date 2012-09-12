@@ -4,6 +4,21 @@ head
     title Konvocate | Home
     link(rel='stylesheet', href='/stylesheets/grid.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script( src='/socket.io/socket.io.js')
+    script(type='text/javascript')
+      var socket = io.connect(location);
+      
+      socket.on('new_thread', function (data) {
+        console.log('got it');
+        $("#newThread").append("<div class='post'>
+            <p>
+              <a href='/thread/" + data._id + "'>" + data.topic + "</a>
+            </p>
+            <span>Create by " + data.author + "on " + data.date + "</span>
+            <div class='comment'></div>
+          </div>")
+      });
   body
     header.container
       .row
@@ -24,6 +39,7 @@ head
         .six.columns
           h2 New Threads
           hr
+          div#newThread
           if threads
             each thread in threads
               .post
@@ -42,7 +58,8 @@ head
             a(href='/new-thread') Start a thread
         .six.columns
           h2 New Comments
-          hr          
+          hr  
+          #newComment        
           if comments            
             each comment in comments
               .comment
