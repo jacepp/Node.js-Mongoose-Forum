@@ -54,7 +54,7 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.session({
     secret: 'razzlefrazzle',
-    store: new MongoStore({db: 'forum'})
+    store: new MongoStore({db: 'forum', host: 'alex.mongohq.com', port: 10040, username: 'nodejitsu', password: '141a86d47e6896f3057df8d8a60ffd22',})
   }));
   app.use(app.router);
 });
