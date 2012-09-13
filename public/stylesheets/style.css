@@ -1,6 +1,7 @@
 body
 {
 color: #242424;
+background: #efefef url('http://deliciouscinnamon.net/images/grey.png') repeat;
 font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 margin: 0;
 padding: 0 0 60px 0;
@@ -8,7 +9,7 @@ padding: 0 0 60px 0;
 
 header
 {
-background: #242424;
+background: #242424 url('http://deliciouscinnamon.net/images/office.png') repeat;
 color: #fff;
 margin: 0 0 40px 0;
 }
@@ -127,14 +128,15 @@ border-bottom: 1px solid #ccc;
 margin: 6px 0 6px 0;
 }
 
-	.comment span
-	{
-	margin: 0 0 10px 20px;
-	}
+    .comment span
+    {
+    display: block;
+    padding: 6px 0 0 0;
+    }
 
 blockquote
 {
-color: #555;
+color: #444;
 padding: 0 0 0 6px;
 border-left: 2px solid #ddd;
 margin: 10px 0 4px 20px;
