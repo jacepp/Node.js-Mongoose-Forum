@@ -7,7 +7,10 @@ head
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script( src='/socket.io/socket.io.js')
     script(type='text/javascript')
-      var socket = io.connect(location);
+      // PMW This needs to be hostname followed by port
+      // The code I showed you in class--connect(location)--tries to connect
+      // to localhost:3000/home instead of localhost:3000, like you want.
+      var socket = io.connect(location.hostname, location.port);
       
       socket.on('new_thread', function (data) {
         console.log('got it');
