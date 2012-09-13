@@ -51,6 +51,7 @@ head
               | #{author}
               | on #{date}
             h4 Comments:
+            a(href='/comment/' + id) Add Comment
             ul.newComment
               if comments
                 each comment in comments
@@ -61,4 +62,4 @@ head
                       | -
                       | #{comment.user}
                       | , #{comment.date}
-              a(href='/comment/' + id) Add Comment
+              
