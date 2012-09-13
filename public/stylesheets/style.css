@@ -165,6 +165,12 @@ overflow: hidden;
     {
     word-wrap: break-word;
     }
+    
+    .all
+    {
+    height: 100%;
+    overflow: visible;
+    }
 
 .newComment
 {
