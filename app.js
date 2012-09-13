@@ -231,11 +231,17 @@ app.post('/add-comment/:id', function(req, res){
   newComment.user = req.session.author;
   newComment.thread = req.params.id;
   newComment.save();
+  
+  Comment.findOne({'_id': newComment._id}, function(err, comment){
+    setTimeout(function() {
+      io.sockets.emit('new_comment', comment);
+    }, 3000 );
+  });
   res.redirect('/thread/' + req.params.id);
 });
 
 io.on('connection', function(socket) {
-  socket.on('new_comment', function(data) {
+  socket.on('new_commentt', function(data) { //changed the new_comment name because wtf ^^^
     
   });
 });

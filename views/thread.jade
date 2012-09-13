@@ -4,6 +4,18 @@ head
     title Konvocate | Thread
     link(rel='stylesheet', href='/stylesheets/grid.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script( src='/socket.io/socket.io.js')
+    script(type='text/javascript')
+      var socket = io.connect(location.hostname, location.port);
+      
+      socket.on('new_comment', function (data) {
+        console.log(data);
+        $("ul.newComment").prepend("<li class='comment'><blockquote>" + data.body + "</blockquote><span>- " + data.user + ", " + data.date + "</span></li>").children().eq(0).hide().slideDown('slow', function() {
+            // Animation complete.
+          });
+      });
+      
   body
     header.container
       .row
@@ -38,17 +50,15 @@ head
               | Created by
               | #{author}
               | on #{date}
-            .comment
+            h4 Comments:
+            ul.newComment
               if comments
-                h4 Comments:
-                  each comment in comments
+                each comment in comments
+                  li.comment
                     blockquote
                       | #{comment.body}
                     span
                       | -
                       | #{comment.user}
                       | , #{comment.date}
-                a(href='/comment/' + id) Add Comment
-              else
-                a(href='/comment/' + id) Add Comment
-              
+              a(href='/comment/' + id) Add Comment

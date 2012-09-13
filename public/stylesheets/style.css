@@ -100,6 +100,8 @@ margin: 0 0 14px 0;
 
 	.post p
 	{
+    font-size: 16px;
+    font-weight: bold;
 	padding: 0;
 	margin: 4px 0;
 	}
@@ -110,6 +112,12 @@ margin: 0 0 14px 0;
 	font-size: 12px;
 	padding: 0 0 4px 0;
 	}
+    
+    .post article p
+    {
+    font-size: 14px;
+    font-weight: normal;
+    }
 	
 .comment
 {
@@ -151,11 +159,38 @@ word-wrap: break-word;
 overflow: hidden;
 }
 
-.newThread .post
+    .newThread .post
+    {
+    word-wrap: break-word;
+    }
+
+.newComment
 {
+height: 1000px;
+padding: 0;
+list-style: none;
 word-wrap: break-word;
+overflow: hidden;
 }
 
+    .newComment .comment
+    {
+    word-wrap: break-word;
+    }
+    
+    .newComment span
+    {
+    color: #777;
+    font-size: 12px;
+    font-weight: normal;
+    }
+
+.right
+{
+margin: -26px 0 0 0;
+float: right;
+}    
+    
 /* ------- Forms ------- */
 
 input[type=text]

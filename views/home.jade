@@ -11,7 +11,14 @@ head
       
       socket.on('new_thread', function (data) {
         console.log(data);
-        $("ul.newThread").prepend("<li class='post'><p><a href='/thread/" + data._id + "'>" + data.topic + "</a></p><article><p>" + data.content + "</p></article><span>Create by " + data.author + " on " + data.date + "</span><div class='comment'></div></li>").children().eq(0).hide().slideDown('slow', function() {
+        $("ul.newThread").prepend("<li class='post'><p><a href='/thread/" + data._id + "'>" + data.topic + "</a></p><article><p>" + data.content + "</p></article><span>Created by " + data.author + " on " + data.date + "</span><div class='comment'></div></li>").children().eq(0).hide().slideDown('slow', function() {
+            // Animation complete.
+          });
+      });
+      
+      socket.on('new_comment', function (data) {
+        console.log(data);
+        $("ul.newComment").prepend("<li class='comment'><blockquote>" + data.body + "</blockquote><span>- " + data.user + ", " + data.date + "</span><aside><a href='/thread/" + data.thread + "'>View Thread</a></aside></li>").children().eq(0).hide().slideDown('slow', function() {
             // Animation complete.
           });
       });
@@ -34,6 +41,7 @@ head
       .row
         .six.columns
           h2 New Threads
+          a.right(href='/new-thread') Start a thread
           hr
           ul.newThread
             if threads
@@ -55,15 +63,15 @@ head
         .six.columns
           h2 New Comments
           hr  
-          #newComment        
-          if comments            
-            each comment in comments
-              .comment
-                blockquote
-                  | #{comment.body}
-                span
-                  | -
-                  | #{comment.user}
-                  | , #{comment.date}
-                aside
-                  a(href='/thread/' + comment.thread) View Thread
+          ul.newComment        
+            if comments            
+              each comment in comments
+                li.comment
+                  blockquote
+                    | #{comment.body}
+                  span
+                    | -
+                    | #{comment.user}
+                    | , #{comment.date}
+                  aside
+                    a(href='/thread/' + comment.thread) View Thread
