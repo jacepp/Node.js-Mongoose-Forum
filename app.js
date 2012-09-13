@@ -231,7 +231,7 @@ app.post('/new-thread', function(req, res){
     Thread.findOne({'_id': newThread._id}, function(err, thread){
       setTimeout(function() {
         io.sockets.emit('new_thread', thread);
-      }, 3000 );
+      }, 1000 );
     });
     res.redirect('/thread/' + newThread._id);
   }
@@ -254,7 +254,7 @@ app.post('/add-comment/:id', function(req, res){
     Comment.findOne({'_id': newComment._id}, function(err, comment){
       setTimeout(function() {
         io.sockets.emit('new_comment', comment);
-      }, 3000 );
+      }, 1000 );
     });
     res.redirect('/thread/' + req.params.id);
   }
