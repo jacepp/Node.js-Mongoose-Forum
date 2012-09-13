@@ -3,7 +3,7 @@ body
 color: #242424;
 font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 margin: 0;
-padding: 0;
+padding: 0 0 60px 0;
 }
 
 header
@@ -140,6 +140,20 @@ text-align: right;
 article
 {
 padding: 6px 0;
+}
+
+.newThread
+{
+height: 1000px;
+padding: 0;
+list-style: none;
+word-wrap: break-word;
+overflow: hidden;
+}
+
+.newThread .post
+{
+word-wrap: break-word;
 }
 
 /* ------- Forms ------- */

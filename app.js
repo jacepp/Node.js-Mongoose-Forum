@@ -217,8 +217,10 @@ app.post('/new-thread', function(req, res){
   newThread.author = req.session.author;
   newThread.save();
 
-  Account.findOne({'_id': newThread._id}, function(err, account){
-    io.sockets.emit('new_thread', account);
+  Thread.findOne({'_id': newThread._id}, function(err, thread){
+    setTimeout(function() {
+      io.sockets.emit('new_thread', thread);
+    }, 3000 );
   });
   res.redirect('/thread/' + newThread._id);
 });
