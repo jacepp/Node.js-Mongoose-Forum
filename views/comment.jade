@@ -30,7 +30,7 @@ head
                 td
                   label(for='body') Body:
                 td
-                  textarea(id='body', rows='5', cols='50', name='body', placeholder='Say what you got to say.')
+                  textarea(id='body', rows='5', cols='50', name='body', placeholder='Say what you got to say.', maxlength='140', onkeyup="javascript:this.value=this.value.replace(/[<,>]/g,'');")
               tr
                 td
                 td

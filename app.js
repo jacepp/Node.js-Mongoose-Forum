@@ -179,6 +179,10 @@ app.post('/login-user', function(req, res){
       Account.findOne({'email': req.body.email}, function(err, account){
         if(account.password == hash){
           req.session.author = account.username;
+          req.session.comments = 0;
+          req.session.threads = 0;
+          var now = new Date().getTime();
+          req.session.timestamp = now;
           res.redirect('/home');
         } else {
           res.redirect('/login');
@@ -211,37 +215,49 @@ app.post('/register-user', function(req, res){
 });
 
 app.post('/new-thread', function(req, res){
-  var newThread = new Thread();
-  newThread.topic = req.body.topic;
-  newThread.content = req.body.content;
-  newThread.author = req.session.author;
-  newThread.save();
+  req.session.threads += 1;
+  var curTime = new Date().getTime();
+  var check = curTime - req.session.timestamp;
+  if(req.session.comments > 5 && check > 120000){
+    req.session.destroy();
+    res.render('index');
+  } else {
+    var newThread = new Thread();
+    newThread.topic = req.body.topic;
+    newThread.content = req.body.content;
+    newThread.author = req.session.author;
+    newThread.save();
 
-  Thread.findOne({'_id': newThread._id}, function(err, thread){
-    setTimeout(function() {
-      io.sockets.emit('new_thread', thread);
-    }, 3000 );
-  });
-  res.redirect('/thread/' + newThread._id);
+    Thread.findOne({'_id': newThread._id}, function(err, thread){
+      setTimeout(function() {
+        io.sockets.emit('new_thread', thread);
+      }, 3000 );
+    });
+    res.redirect('/thread/' + newThread._id);
+  }
 });
 
 app.post('/add-comment/:id', function(req, res){
-  var newComment = new Comment();
-  newComment.body = req.body.body;
-  newComment.user = req.session.author;
-  newComment.thread = req.params.id;
-  newComment.save();
-  
-  Comment.findOne({'_id': newComment._id}, function(err, comment){
-    setTimeout(function() {
-      io.sockets.emit('new_comment', comment);
-    }, 3000 );
-  });
-  res.redirect('/thread/' + req.params.id);
+  req.session.comments += 1;
+  var curTime = new Date().getTime();
+  var check = curTime - req.session.timestamp;
+  if(req.session.comments > 5 && check > 120000){
+    req.session.destroy();
+    res.render('index');
+  } else {
+    var newComment = new Comment();
+    newComment.body = req.body.body;
+    newComment.user = req.session.author;
+    newComment.thread = req.params.id;
+    newComment.save();
+    
+    Comment.findOne({'_id': newComment._id}, function(err, comment){
+      setTimeout(function() {
+        io.sockets.emit('new_comment', comment);
+      }, 3000 );
+    });
+    res.redirect('/thread/' + req.params.id);
+  }
 });
 
-io.on('connection', function(socket) {
-  socket.on('new_commentt', function(data) { //changed the new_comment name because wtf ^^^
-    
-  });
-});
+io.on('connection', function(socket) {});

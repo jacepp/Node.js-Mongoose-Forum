@@ -30,12 +30,12 @@ head
                 td
                   label(for='topic') Topic:
                 td
-                  input(type='text', name='topic', placeholder='Enter a topic')
+                  input(type='text', name='topic', placeholder='Enter a topic', maxlength='75', onkeyup="javascript:this.value=this.value.replace(/[<>]/g,'');")
               tr
                 td
                   label(for='content') Body:
                 td
-                  textarea(id='content', rows='10', cols='50', name='content', placeholder='Say what you got to say.')
+                  textarea(id='content', rows='10', cols='50', name='content', placeholder='Say what you got to say.', maxlength='250', onkeyup="javascript:this.value=this.value.replace(/[<>]/g,'');")
               tr
                 td
                 td
