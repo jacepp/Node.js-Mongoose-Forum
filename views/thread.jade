@@ -7,16 +7,14 @@ head
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script( src='/socket.io/socket.io.js')
     script(type='text/javascript')
-      $(document).ready(function(){
-        var socket = io.connect(location.hostname, location.port);
-        
-        socket.on('new_comment', function (data) {
-          console.log(data);
-          $("ul.newComment").prepend("<li class='comment'><blockquote>" + data.body + "</blockquote><span>- " + data.user + ", " + data.date + "</span></li>").children().eq(0).hide().slideDown('slow', function() {
-              // Animation complete.
-            });
-        });
-      });  
+      var socket = io.connect(location.hostname, location.port);
+      
+      socket.on('new_comment', function (data) {
+        console.log(data);
+        $("ul.newComment").prepend("<li class='comment'><blockquote>" + data.body + "</blockquote><span>- " + data.user + ", " + data.date + "</span></li>").children().eq(0).hide().slideDown('slow', function() {
+            // Animation complete.
+          });
+      });
   body
     header.container
       .row
